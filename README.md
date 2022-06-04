@@ -1,6 +1,10 @@
-# Udacity Blockchain Capstone
+# Honeyland
 
-The capstone will build upon the knowledge you have gained in the course in order to build a decentralized housing product. 
+Honeyland is a decentralized application that is focused on solving the long existing problem of title ownership fraud in the real-estate industry. Honeyland is a marketplace that lists properties up for sale provided that seller proves ownership of the property about to be listed.  
+
+## How does honeyland solve the problem?
+
+
 
 # Project Resources
 

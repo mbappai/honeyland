@@ -1,8 +1,9 @@
+
 # Honeyland
 
 Honeyland is a decentralized application that is focused on solving the long existing problem of title ownership fraud in the real-estate industry. Honeyland is a marketplace that lists properties up for sale provided that seller proves ownership of the property about to be listed.  
 
-## Components of the app architecture
+## Components of the app architecture  
 
 ### Tokens (Property titles)
 

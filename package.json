@@ -1,7 +1,7 @@
 {
-  "name": "capstone",
+  "name": "honeyland",
   "version": "1.0.0",
-  "description": "",
+  "description": "Honeyland is a decentralized application that is focused on solving the long existing problem of title ownership fraud in the real-estate industry. Honeyland is a marketplace that lists properties up for sale provided that seller proves ownership of the property about to be listed.",
   "main": "index.js",
   "scripts": {
     "dev": "lite-server",
@@ -14,8 +14,15 @@
     "lite-server": "2.4.0"
   },
   "dependencies": {
-    "openzeppelin-solidity": "^2.2.0",
-    "solc": "^0.5.2",
-    "solc-js": "^0.5.2"
-  }
+    "@openzeppelin/contracts": "^4.6.0",
+    "solc": "^0.8.14-fixed"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mbappai/honeyland.git"
+  },
+  "bugs": {
+    "url": "https://github.com/mbappai/honeyland/issues"
+  },
+  "homepage": "https://github.com/mbappai/honeyland#readme"
 }

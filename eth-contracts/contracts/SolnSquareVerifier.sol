@@ -1,4 +1,5 @@
-pragma solidity 0.8.13;
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.0;
 
 // TODO define a contract call to the zokrates generated solidity contract <Verifier> or <renamedVerifier>
 

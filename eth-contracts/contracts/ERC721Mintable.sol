@@ -11,6 +11,7 @@ import "@openzeppelin/contracts/token/ERC721/extensions/ERC721URIStorage.sol";
 import "@openzeppelin/contracts/access/Ownable.sol";
 import "@openzeppelin/contracts/utils/Counters.sol";
 import "@openzeppelin/contracts/utils/Strings.sol";
+import "@openzeppelin/contracts/security/Pausable.sol";
 
 
 //  TODO's: Create CustomERC721Token contract that inherits from the ERC721Metadata contract. You can name this contract as you please
@@ -22,7 +23,7 @@ import "@openzeppelin/contracts/utils/Strings.sol";
 //      -returns a true boolean upon completion of the function
 //      -calls the superclass mint and setTokenURI functions
 
-contract Honeyland is ERC721URIStorage,Ownable {
+contract ERC721Mintable is ERC721URIStorage,Ownable,Pausable {
 
 using Counters for Counters.Counter;
 
@@ -33,7 +34,7 @@ using Counters for Counters.Counter;
         return "https://s3-us-west-2.amazonaws.com/udacity-blockchain/capstone/";
     }
 
-    function _createTokenURI(uint tokenId) internal{
+    function _createTokenURI(uint tokenId) internal whenNotPaused{
 
         // get base URI
         string memory baseURI = _baseURI();
@@ -48,7 +49,7 @@ using Counters for Counters.Counter;
         _setTokenURI(tokenId,tokenURI);
     }
 
-    function mint(address to, uint256 tokenId, string memory tokenURI ) public returns(bool){
+    function mint(address to, uint256 tokenId, string memory tokenURI ) public onlyOwner whenNotPaused returns(bool){
         //mint token
         _safeMint(to,tokenId);
         return true;

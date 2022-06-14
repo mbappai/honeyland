@@ -25,7 +25,15 @@ import "@openzeppelin/contracts/security/Pausable.sol";
 
 contract ERC721Mintable is ERC721URIStorage,Ownable,Pausable {
 
-using Counters for Counters.Counter;
+    using Counters for Counters.Counter;
+
+    //create variable to hold tokenSupply
+    Counters.Counter s_tokenSupply;
+
+
+    function getTokenSupply() public view returns(uint256){
+        return s_tokenSupply.current();
+    }
 
     constructor() ERC721('HoneyToken','HYT'){}
 
@@ -33,6 +41,8 @@ using Counters for Counters.Counter;
     function _baseURI() internal override view virtual returns (string memory) {
         return "https://s3-us-west-2.amazonaws.com/udacity-blockchain/capstone/";
     }
+
+
 
     function _createTokenURI(uint tokenId) internal whenNotPaused{
 
@@ -49,9 +59,13 @@ using Counters for Counters.Counter;
         _setTokenURI(tokenId,tokenURI);
     }
 
-    function mint(address to, uint256 tokenId, string memory tokenURI ) public onlyOwner whenNotPaused returns(bool){
+    function mint(address to, uint256 tokenId) public onlyOwner whenNotPaused returns(bool){
         //mint token
         _safeMint(to,tokenId);
+
+        //update tokenSupply
+        s_tokenSupply.increment();
+
         return true;
     }
 

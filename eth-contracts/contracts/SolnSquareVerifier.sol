@@ -8,60 +8,74 @@ import "./Verifier.sol";
 
 
 
-contract SolnSquareVerifier is ERC721Mintable{
+contract SolnSquareVerifier is ERC721Mintable,Verifier{
 
     // Solutions struct that can hold an index & an address
     struct Solution{
-        address sender;
+        address receiverWallet;
         uint index;
+    }
+
+    Verifier verifierContract;
+
+    constructor(){
+        verifierContract = new Verifier();
     }
     
     // Array of to store unique solutions submitted. 
-    Solution[] solutions;
+    Solution[] internal solutions;
 
     // Mapping to store unique solutions submitted
-    mapping(uint => Solution) private uniqSolutions;
+    mapping(bytes32 => Solution) private uniqSolutions;
 
 
     // Emiited after solution has been added to solutions array.
-    event SolutionAdded(address to, uint index);
+    event SolutionAdded(address receiverWallet, uint index);
 
 
     // Modifier to make sure solution has been verified before minting
-    modifier verifySolution(){
-        // call functions inside square verifier to check
-        // use require statement to pass or fail
+    modifier solutionDoesNotExist(uint256 index, address receiverWallet) {
+        bytes32 key = keccak256(abi.encodePacked(index, receiverWallet));
+        require(uniqSolutions[key].receiverWallet == address(0), "SOLUTION NOT UNIQUE: Solution already exists");
         _;
     }
 
 
 
-    function isSolutionUnique () internal returns (bool){
-
-    }
-
 
     // Function to add unique solutions into solutions array and emit event afterward.
-    function addSolutionToArray(address to, uint index) public {
+    // @params to: address of the wallet nft will be sent to after minting
+    function addSolutionToArray(address receiverWallet, uint index) public {
         //assign params to solution
-        Solution memory solution = Solution(to,index);
+        Solution memory solution = Solution(receiverWallet,index);
+
+        // hash index and receiver and set as key to uniqSolutions
+        bytes32 key = keccak256(abi.encodePacked(index, receiverWallet));
+        uniqSolutions[key] = solution;
 
         //push solutions to array
         solutions.push(solution);
 
         //emit event of solution added
-        emit SolutionAdded(to, index);
+        emit SolutionAdded(receiverWallet, index);
     }
 
 
 
-// TODO Create a function to mint new NFT only after the solution has been verified
-//  - make sure the solution is unique (has not been used before)
-//  - make sure you handle metadata as well as tokenSuplly
 
-    function mintNFT () public verifySolution {
-        // check if solution is unique
-        //handle meta data and tokenSupply
+
+    function mintNFT (
+        Verifier.Proof memory proof,
+        uint256[2] calldata inputs,
+        uint index,
+        address receiverWallet
+        ) public solutionDoesNotExist(index,receiverWallet) {
+
+        require(verifierContract.verifyTx(proof, inputs), "Solution is not verified");
+
+        addSolutionToArray(receiverWallet, index);
+
+        mint(receiverWallet, index);
     }
 
 

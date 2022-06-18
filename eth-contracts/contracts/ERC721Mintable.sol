@@ -44,21 +44,6 @@ contract ERC721Mintable is ERC721URIStorage,Ownable,Pausable {
 
 
 
-    // function _createTokenURI(uint tokenId) internal whenNotPaused{
-
-    //     // get base URI
-    //     string memory baseURI = _baseURI();
-
-    //     // get token ID
-    //     string memory tokenIdToString = Strings.toString(tokenId);
-
-    //     // concatenate both of them together
-    //     string memory tokenURI = string(abi.encodePacked(baseURI, tokenIdToString));
-
-    //     // call setTokenURI to save newly created tokenURI in tokenURIs variable in super class.
-    //     _setTokenURI(tokenId,tokenURI);
-    // }
-
     function mint(address to, uint256 tokenId) public onlyOwner whenNotPaused returns(bool){
         //mint token
         _safeMint(to,tokenId);

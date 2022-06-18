@@ -19,7 +19,7 @@
  */
 
 
-require('dotenv').config();
+require('dotenv').config({path:'../.env'});
 
 const HDWalletProvider = require("@truffle/hdwallet-provider");
 
@@ -61,16 +61,18 @@ module.exports = {
     // Useful for deploying to a public network.
     // NB: It's important to wrap the provider as a function.
     rinkeby: {
+      networkCheckTimeout: 10000000,
       provider: () => new HDWalletProvider( process.env.MNEMONIC_PHRASE,
          `https://rinkeby.infura.io/v3/${process.env.INFURA_KEY}`),
-        // numberOfAddresses: 1,
-        // from:'0x87906b0E252B370251E58730D7B88FdEEC9d9d8e',
+        from:'0x87906b0E252B370251E58730D7B88FdEEC9d9d8e',
         network_id:4,
+        gas: 5500000,
         shareNonce: true,
         derivationPath: "m/44'/1'/0'/0/",
-        networkCheckTimeoutnetworkCheckTimeout: 10000,
-        timeoutBlocks: 200
-      ,
+        timeoutBlocks: 200,
+        confirmations:2,
+        // pollingInterval:30000,
+        skipDryRun:true
     },
 
     // Useful for private networks
@@ -96,7 +98,7 @@ module.exports = {
       //    enabled: false,
       //    runs: 200
       //  },
-      //  evmVersion: "byzantium"
+       evmVersion: "byzantium"
       // }
     }
   }

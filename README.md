@@ -19,9 +19,9 @@ This is the final part of our application. Tokens (tiltes) that passes our verif
 
 ## Opensea Marketplace • HoneyToken (HYT)
 
-HoneyToken Collectible link: https://testnets.opensea.io/collection/honeytoken
-Sellers storefront: https://testnets.opensea.io/0x87906b0E252B370251E58730D7B88FdEEC9d9d8e
-Buyers storefront: https://testnets.opensea.io/0xC26A3915944f3E214b048A8e0CD005C5596080cF
+- HoneyToken Collectible link: https://testnets.opensea.io/collection/honeytoken
+- Sellers storefront: https://testnets.opensea.io/0x87906b0E252B370251E58730D7B88FdEEC9d9d8e
+- Buyers storefront: https://testnets.opensea.io/0xC26A3915944f3E214b048A8e0CD005C5596080cF
 
 ## Contract Address (Rinkeby)
 
